@@ -16,8 +16,8 @@ import {
   pickPrimaryPreviewTarget
 } from '@/components/assistant-ui/thread/content'
 import { MESSAGE_PARTS_COMPONENTS } from '@/components/assistant-ui/thread/message-parts'
-import { MessageTimeLabel } from '@/components/assistant-ui/thread/message-time'
 import { ReactionPicker } from '@/components/assistant-ui/thread/message-reactions'
+import { MessageTimeLabel } from '@/components/assistant-ui/thread/message-time'
 import { ResponseLoadingIndicator, StreamStallIndicator } from '@/components/assistant-ui/thread/status'
 import { formatMessageTimestamp } from '@/components/assistant-ui/thread/timestamp'
 import { useMessageReactions, useTapbackDoubleClick } from '@/components/assistant-ui/thread/use-message-reactions'
