@@ -3456,6 +3456,7 @@ function forceKillProcessTree(pid) {
     // process orphaned, holding the DuckDB file lock forever (WAL never
     // checkpoints). Find detached `hermes_cli.main serve` processes directly.
     let processOutput = ''
+
     try {
       processOutput = execFileSync(
         'wmic',
@@ -3484,10 +3485,11 @@ function forceKillProcessTree(pid) {
     for (const line of String(processOutput).split(/\r?\n/)) {
       const trimmed = line.trim()
       const parts = trimmed.split(',')
-      const orphanPid = /^\d+$/.test(trimmed)
-        ? parseInt(trimmed, 10)
-        : parseInt(parts[parts.length - 1], 10)
+
+      const orphanPid = /^\d+$/.test(trimmed) ? parseInt(trimmed, 10) : parseInt(parts[parts.length - 1], 10)
+
       const isTargeted = /^\d+$/.test(trimmed) || (trimmed.includes('hermes_cli.main') && trimmed.includes('serve'))
+
       if (Number.isInteger(orphanPid) && orphanPid > 0 && isTargeted) {
         try {
           execFileSync('taskkill', ['/PID', String(orphanPid), '/F'], hiddenWindowsChildOptions({ stdio: 'ignore' }))
